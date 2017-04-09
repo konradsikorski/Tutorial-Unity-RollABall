@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour {
     // perform before phisics calculation
     private void FixedUpdate()
     {
+        if (Input.GetKeyDown("space"))
+        {
+            rb.velocity = Vector3.zero;
+        }
+
         var moveHorizontal = Input.GetAxis("Horizontal");
         var moveVertical = Input.GetAxis("Vertical");
 
