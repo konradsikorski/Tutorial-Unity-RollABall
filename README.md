@@ -9,5 +9,10 @@ This is from standard Unity tutorial. I have extended it by adding:
 ![img](/README/img/Scene1_1.png)
 
 ## Scene2: Ball on a rump
+ - Rump and a ball which can be contol using only left, right
+ - Collecting coins
+ - Finish line
+ - Loose condition when ball fall aoutside the world
+ - Show/Hide canvas (UI controls)
 ![img](/README/img/Scene2_1.png)
 ![img](/README/img/Scene2_2.png)
