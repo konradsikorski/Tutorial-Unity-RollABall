@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[Serializable]
+public class Boundry
+{
+    public float xMin, xMax;
+    public float zMin, zMax;
+}
+
+public class PlayerController : MonoBehaviour {
+    public float Speed;
+    public float Tilt;
+    public Boundry Boundary;
+
+    private Rigidbody playerBody;
+    private Vector3 movement;
+
+	// Use this for initialization
+	void Start () {
+        playerBody = GetComponent<Rigidbody>();
+	}
+	
+	// Update is called once per frame
+	void FixedUpdate () {
+        var h = Input.GetAxis("Horizontal");
+        var v = Input.GetAxis("Vertical");
+
+        if (transform.position.z > Boundary.zMax && v > 0) v = 0;
+        if (transform.position.z < Boundary.zMin && v < 0) v = 0;
+
+        if (transform.position.x > Boundary.xMax && h > 0) h = 0;
+        if (transform.position.x < Boundary.xMin && h < 0) h = 0;
+
+        movement.Set(h, 0, v);
+        playerBody.velocity = movement * Speed;
+        playerBody.rotation = Quaternion.Euler(0,0, playerBody.velocity.x * -Tilt);
+	}
+}
