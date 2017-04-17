@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BoltController : MonoBehaviour {
     public float Speed;
+    public float Demage;
     public float zMax;
     private Rigidbody boltBody;
+    public bool IsDestroyed;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +17,8 @@ public class BoltController : MonoBehaviour {
 
     private void Update()
     {
-        if (transform.position.z >= zMax)
-            Destroy(gameObject);
+        // replaced by GameBoundaryController
+        //if (transform.position.z >= zMax)
+        //    Destroy(gameObject);
     }
 }

@@ -1,0 +1,56 @@
+﻿using System;
+using UnityEngine;
+
+public class AsteroidController : MonoBehaviour {
+    public float Speed;
+    public float Tumble;
+    public float Health;
+    public float Demage;
+
+    private float _size;
+    public float Size
+    {
+        get { return _size; }
+        set
+        {
+            _size = value;
+            Health = (float)Math.Floor(value * 3f);
+            Demage = _size * 10f;
+        }
+    }
+
+    private Rigidbody asteroidBody;
+
+	// Use this for initialization
+	void Start () {
+        asteroidBody = GetComponent<Rigidbody>();
+        asteroidBody.velocity = -Vector3.forward * Speed;
+
+        asteroidBody.angularVelocity = UnityEngine.Random.insideUnitSphere * Tumble;
+	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) HitPlayer(other.gameObject);
+        else if (other.CompareTag("Bolt")) HitBolt(other.gameObject);
+    }
+
+    private void HitBolt(GameObject bolt)
+    {
+        var boltController = bolt.GetComponent<BoltController>();
+        if (boltController.IsDestroyed) return;
+
+        boltController.IsDestroyed = true;
+        Health -= boltController.Demage;
+
+        Destroy(bolt);
+        if (Health <= 0) Destroy(gameObject);
+    }
+
+    private void HitPlayer(GameObject player)
+    {
+        var playerController = player.GetComponent<PlayerController>();
+        playerController.Health -= Demage;
+        Destroy(gameObject);
+    }
+}

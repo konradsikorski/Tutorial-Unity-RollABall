@@ -14,6 +14,24 @@ public class PlayerController : MonoBehaviour {
     public float Speed;
     public float Tilt;
     public Boundry Boundary;
+    public float StartHealth;
+
+    private float _health;
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+
+            if (_health <= 0) Death();
+        }
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
+    }
 
     private Rigidbody playerBody;
     private Vector3 movement;
@@ -21,6 +39,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerBody = GetComponent<Rigidbody>();
+        Health = StartHealth;
 	}
 	
 	// Update is called once per frame
