@@ -6,6 +6,9 @@ public class AsteroidController : MonoBehaviour {
     public float Tumble;
     public float Health;
     public float Demage;
+    public GameObject Explosin;
+    public AudioSource DestroyClip;
+    public int Score;
 
     private float _size;
     public float Size
@@ -16,6 +19,7 @@ public class AsteroidController : MonoBehaviour {
             _size = value;
             Health = (float)Math.Floor(value * 3f);
             Demage = _size * 10f;
+            Score = (int)Math.Floor(value * 3f) * 10;
         }
     }
 
@@ -44,13 +48,21 @@ public class AsteroidController : MonoBehaviour {
         Health -= boltController.Demage;
 
         Destroy(bolt);
-        if (Health <= 0) Destroy(gameObject);
+        if (Health <= 0) DestroyAsteroid();
     }
 
     private void HitPlayer(GameObject player)
     {
         var playerController = player.GetComponent<PlayerController>();
         playerController.Health -= Demage;
+        DestroyAsteroid();
+    }
+
+    private void DestroyAsteroid()
+    {
         Destroy(gameObject);
+        var explosion = Instantiate(Explosin, transform.position, transform.rotation);
+        explosion.GetComponent<AudioSource>().Play();
+        Destroy(explosion, 2);
     }
 }

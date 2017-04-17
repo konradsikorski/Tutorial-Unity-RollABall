@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     public float Tilt;
     public Boundry Boundary;
     public float StartHealth;
+    public GameObject Explosion;
+    public AudioSource DestroyClip;
 
     private float _health;
     public float Health
@@ -57,4 +59,11 @@ public class PlayerController : MonoBehaviour {
         playerBody.velocity = movement * Speed;
         playerBody.rotation = Quaternion.Euler(0,0, playerBody.velocity.x * -Tilt);
 	}
+
+    private void OnDestroy()
+    {
+        var explosion = Instantiate(Explosion, transform.position, transform.rotation);
+        explosion.GetComponent<AudioSource>().Play();
+        DestroyObject(explosion, 2);
+    }
 }

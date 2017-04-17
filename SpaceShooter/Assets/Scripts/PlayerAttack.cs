@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour {
     public bool IsAutoFire;
     public float FireSpeed;
     public GameObject Bolt;
+    public AudioSource WeaponClip;
 
     private Transform shootSpown;
     //private float fireDeltaTime;
@@ -45,5 +46,6 @@ public class PlayerAttack : MonoBehaviour {
     private void Fire()
     {
         Instantiate(Bolt, shootSpown.position, shootSpown.rotation);
+        WeaponClip.Play();
     }
 }
