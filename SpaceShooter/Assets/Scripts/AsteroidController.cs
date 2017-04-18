@@ -18,7 +18,7 @@ public class AsteroidController : MonoBehaviour {
         {
             _size = value;
             Health = (float)Math.Floor(value * 3f);
-            Demage = _size * 10f;
+            Demage = (float)Math.Floor(_size) * 10f;
             Score = (int)Math.Floor(value * 3f) * 10;
         }
     }
@@ -61,6 +61,7 @@ public class AsteroidController : MonoBehaviour {
     private void DestroyAsteroid()
     {
         Destroy(gameObject);
+        UIController.Instance.Points += Score;
         var explosion = Instantiate(Explosin, transform.position, transform.rotation);
         explosion.GetComponent<AudioSource>().Play();
         Destroy(explosion, 2);

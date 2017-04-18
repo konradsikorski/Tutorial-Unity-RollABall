@@ -27,12 +27,16 @@ public class PlayerController : MonoBehaviour {
             _health = value;
 
             if (_health <= 0) Death();
+
+            UIController.Instance.PlayerHealth = _health;
         }
     }
 
     private void Death()
     {
+        _health = 0;
         Destroy(gameObject);
+        UIController.Instance.GameEnd();
     }
 
     private Rigidbody playerBody;
