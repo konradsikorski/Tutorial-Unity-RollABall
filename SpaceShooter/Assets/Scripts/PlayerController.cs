@@ -53,6 +53,12 @@ public class PlayerController : MonoBehaviour {
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
 
+        if (h == 0 && v == 0)
+        {
+            h = Input.GetAxis("Mouse X");
+            v = Input.GetAxis("Mouse Y");
+        }
+
         if (transform.position.z > Boundary.zMax && v > 0) v = 0;
         if (transform.position.z < Boundary.zMin && v < 0) v = 0;
 

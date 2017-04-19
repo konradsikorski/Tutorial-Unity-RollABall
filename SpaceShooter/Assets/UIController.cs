@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour {
 
     public CanvasGroup GameScreen;
     public CanvasGroup GameEndScreen;
-
+    
     private int _points;
     public int Points
     {
