@@ -48,7 +48,6 @@ public class AsteroidController : MonoBehaviour {
         Health -= boltController.Demage;
 
         Destroy(bolt);
-        if (Health <= 0) DestroyAsteroid();
     }
 
     private void HitPlayer(GameObject player)

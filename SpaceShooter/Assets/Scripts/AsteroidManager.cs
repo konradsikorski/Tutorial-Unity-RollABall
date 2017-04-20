@@ -8,19 +8,47 @@ public class AsteroidManager : MonoBehaviour {
     public float TumbleMin;
     public float TumbleMax;
     public float DeltaTime;
+    public float EnemiesDeltaTime;
 
     public GameObject[] Asteroids;
+    public GameObject[] Enemies;
 
     private float nextAsteroidTime;
-    	
-	// Update is called once per frame
-	void Update () {
-		if(UIController.Instance.GameReady && nextAsteroidTime < Time.time)
+    private float nextEnemyTime;
+
+    // Update is called once per frame
+    void Update () {
+        if (!UIController.Instance.GameReady) return;
+
+        if (nextAsteroidTime < Time.time)
         {
             nextAsteroidTime = Time.time + DeltaTime;
             CreateAsteroid();
         }
-	}
+        if (nextEnemyTime < Time.time)
+        {
+            nextEnemyTime = Time.time + DeltaTime;
+            CreateEnemy();
+        }
+    }
+
+    private void CreateEnemy()
+    {
+        var position = new Vector3(
+            Random.Range(-6, 6),
+            0,
+            16
+            );
+
+        var enemyIndex = Random.Range(0, Enemies.Length);
+        var enemy = Instantiate(
+            Enemies[enemyIndex],
+            position,
+            Quaternion.identity);
+
+        //var controler = enemy.GetComponent<EnemyController>();
+        //controler.Speed = Random.Range(SpeedMin, SpeedMax);
+    }
 
     private void CreateAsteroid()
     {

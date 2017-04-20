@@ -68,7 +68,23 @@ public class PlayerController : MonoBehaviour {
         movement.Set(h, 0, v);
         playerBody.velocity = movement * Speed;
         playerBody.rotation = Quaternion.Euler(0,0, playerBody.velocity.x * -Tilt);
-	}
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BoltEnemy")) HitBolt(other.gameObject);
+    }
+
+    private void HitBolt(GameObject bolt)
+    {
+        var boltController = bolt.GetComponent<BoltController>();
+        if (boltController.IsDestroyed) return;
+
+        boltController.IsDestroyed = true;
+        Health -= boltController.Demage;
+
+        Destroy(bolt);
+    }
 
     private void OnDestroy()
     {
