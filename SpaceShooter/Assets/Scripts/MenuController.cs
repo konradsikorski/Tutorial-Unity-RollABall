@@ -7,6 +7,8 @@ public class MenuController : MonoBehaviour {
     public CanvasGroup GameScreen;
     public CanvasGroup MenuScreen;
 
+    private Animator playerAnimator;
+
     private void Awake()
     {
         Time.timeScale = 0;
@@ -19,11 +21,24 @@ public class MenuController : MonoBehaviour {
 
     public void StartGame()
     {
-        GameObject.FindGameObjectWithTag("Player").SetActive(true);
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.SetActive(true);
+        playerAnimator = player.GetComponent<Animator>();
+        playerAnimator.SetBool("GameStarting", true);
+
+        StartCoroutine(GameStarting());
+
         GameScreen.alpha = 1;
         MenuScreen.alpha = 0;
 
         Time.timeScale = 1;
+    }
+
+    private IEnumerator GameStarting()
+    {
+        yield return new WaitForSeconds(1.5f);
+        playerAnimator.enabled = false;
+        UIController.Instance.GameReady = true;
     }
 
     public void ExitGame()

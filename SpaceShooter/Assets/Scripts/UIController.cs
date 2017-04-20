@@ -10,6 +10,8 @@ public class UIController : MonoBehaviour {
     public Text GameEndScoreText;
     public Slider PlayerHealthSlider;
 
+    public bool GameReady { get; set; }
+
     public CanvasGroup GameScreen;
     public CanvasGroup GameEndScreen;
     

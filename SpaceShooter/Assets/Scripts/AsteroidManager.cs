@@ -15,7 +15,7 @@ public class AsteroidManager : MonoBehaviour {
     	
 	// Update is called once per frame
 	void Update () {
-		if(nextAsteroidTime < Time.time)
+		if(UIController.Instance.GameReady && nextAsteroidTime < Time.time)
         {
             nextAsteroidTime = Time.time + DeltaTime;
             CreateAsteroid();
