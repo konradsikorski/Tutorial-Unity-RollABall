@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
     {
         _health = 0;
         Destroy(gameObject);
-        UIController.Instance.GameEnd();
+        GameController.Instance.GameOver();
     }
 
     private Rigidbody playerBody;

@@ -3,31 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundController : MonoBehaviour {
-
-    public GameObject[] Backgrounds;
     public float Speed;
+    private Vector3 _startPosition;
 
-	// Use this for initialization
-	void Start () {
+    private void Start()
+    {
+        _startPosition = transform.position;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        foreach (var background in Backgrounds)
-        {
-            var z = background.transform.position.z + 1 * -Speed;
-            if (z < -background.transform.localScale.y) z += background.transform.localScale.y * 2;
 
-            background.transform.position = new Vector3(
-                background.transform.position.x,
-                background.transform.position.y,
-                z
-                );
-
-            //background.transform.position.Set(
-            //    background.transform.position.x,
-            //    background.transform.position.y, 
-            //    background.transform.position.z + 1 * Speed);
-        }
-	}
+    // Update is called once per frame
+    void Update () {
+        var move = Mathf.Repeat(Time.time * Speed, transform.localScale.y);
+        transform.position = _startPosition + Vector3.forward * move;
+    }
 }

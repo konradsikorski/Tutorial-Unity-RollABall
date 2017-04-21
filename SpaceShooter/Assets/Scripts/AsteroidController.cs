@@ -4,7 +4,6 @@ using UnityEngine;
 public class AsteroidController : MonoBehaviour {
     public float Speed;
     public float Tumble;
-    public float Health;
     public float Demage;
     public GameObject Explosin;
     public AudioSource DestroyClip;
@@ -20,6 +19,17 @@ public class AsteroidController : MonoBehaviour {
             Health = (float)Math.Floor(value * 3f);
             Demage = (float)Math.Floor(_size) * 10f;
             Score = (int)Math.Floor(value * 3f) * 10;
+        }
+    }
+
+    private float _health;
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            if (_health <= 0) DestroyAsteroid();
         }
     }
 

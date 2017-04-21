@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
     public static UIController Instance;
+
     public Text PointsText;
     public Text PlayerHealthText;
     public Text GameEndScoreText;
@@ -34,13 +35,6 @@ public class UIController : MonoBehaviour {
             PlayerHealthText.text = value.ToString();
             PlayerHealthSlider.value = value;
         }
-    }
-
-    public void GameEnd()
-    {
-        GameEndScoreText.text = "Your Score: " + Points;
-        GameScreen.alpha = 0;
-        GameEndScreen.alpha = 1;
     }
 
     private void Awake()
