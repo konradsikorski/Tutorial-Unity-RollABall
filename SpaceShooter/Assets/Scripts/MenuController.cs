@@ -19,6 +19,11 @@ public class MenuController : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
+    public void Continue()
+    {
+        GameController.Instance.IsPaused = false;
+    }
+
     public void ExitGame()
     {
         // save any game data here

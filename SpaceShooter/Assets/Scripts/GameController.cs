@@ -10,12 +10,29 @@ public class GameController : MonoBehaviour
 
     public bool IsActive { get; private set; }
 
+    private bool _isPaused;
+    public bool IsPaused
+    {
+        get { return _isPaused; }
+        set
+        {
+            if (value == _isPaused) return;
+            if (!IsActive) return;
+
+            _isPaused = value;
+
+            Time.timeScale = System.Convert.ToInt32(!_isPaused);
+            UIController.Instance.ShowPauseScreen(_isPaused);
+        }
+    }
+
     private Animator playerAnimator;
 
     private void Awake()
     {
         Instance = this;
         this.IsActive = false;
+        Time.timeScale = 1;
     }
 
     private void OnDestroy()
@@ -48,6 +65,11 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         playerAnimator.enabled = false;
         IsActive = true;
+    }
+
+    private void Update()
+    {
+        if( Input.GetKeyDown(KeyCode.Escape) ) IsPaused = !IsPaused;
     }
 
     public void GameOver()

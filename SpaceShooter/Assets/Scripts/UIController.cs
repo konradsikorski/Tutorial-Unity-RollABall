@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour {
 
     public CanvasGroup GameScreen;
     public CanvasGroup GameOverScreen;
+    public CanvasGroup GamePauseScreen;
 
     private int _points;
     public int Points
@@ -23,6 +24,11 @@ public class UIController : MonoBehaviour {
             _points = value;
             PointsText.text = value.ToString();
         }
+    }
+
+    public void ShowPauseScreen(bool show)
+    {
+        GamePauseScreen.alpha = show ? 1 : 0;
     }
 
     private float _playerHealth;
