@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour {
         explosion.GetComponent<AudioSource>().Play();
         DestroyObject(explosion, 2);
 
+        HitEffectImage.color = Color.clear;
         GameController.Instance.GameOver();
     }
 
@@ -110,10 +111,5 @@ public class PlayerController : MonoBehaviour {
         Health -= boltController.Demage;
 
         Destroy(bolt);
-    }
-
-    private void OnDestroy()
-    {
-        HitEffectImage.color = Color.clear;
     }
 }
