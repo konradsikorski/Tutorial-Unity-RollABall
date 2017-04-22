@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour {
     {
         _health = 0;
         Destroy(gameObject);
+
+        var explosion = Instantiate(Explosion, transform.position, transform.rotation);
+        explosion.GetComponent<AudioSource>().Play();
+        DestroyObject(explosion, 2);
+
         GameController.Instance.GameOver();
     }
 
@@ -84,12 +89,5 @@ public class PlayerController : MonoBehaviour {
         Health -= boltController.Demage;
 
         Destroy(bolt);
-    }
-
-    private void OnDestroy()
-    {
-        var explosion = Instantiate(Explosion, transform.position, transform.rotation);
-        explosion.GetComponent<AudioSource>().Play();
-        DestroyObject(explosion, 2);
     }
 }

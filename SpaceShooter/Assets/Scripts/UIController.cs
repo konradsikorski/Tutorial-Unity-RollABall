@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,18 +12,16 @@ public class UIController : MonoBehaviour {
     public Text GameEndScoreText;
     public Slider PlayerHealthSlider;
 
-    public bool GameReady { get; set; }
-
     public CanvasGroup GameScreen;
-    public CanvasGroup GameEndScreen;
-    
+    public CanvasGroup GameOverScreen;
+
     private int _points;
     public int Points
     {
         get { return _points; }
         set {
             _points = value;
-            PointsText.text = "Score: " + value;
+            PointsText.text = value.ToString();
         }
     }
 
@@ -45,5 +44,12 @@ public class UIController : MonoBehaviour {
     private void OnDestroy()
     {
         Instance = null;
+    }
+
+    internal void ShowGameOverScreen()
+    {
+        GameEndScoreText.text = UIController.Instance.Points.ToString();
+        GameScreen.alpha = 0;
+        GameOverScreen.alpha = 1;
     }
 }

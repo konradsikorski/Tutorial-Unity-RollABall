@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance;
-    public Text GameEndScoreText;
-    public CanvasGroup GameOverScreen;
-    public CanvasGroup GameScreen;
+
+    public bool IsActive { get; private set; }
 
     private Animator playerAnimator;
 
     private void Awake()
     {
         Instance = this;
+        this.IsActive = false;
     }
 
     private void OnDestroy()
@@ -47,13 +47,12 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         playerAnimator.enabled = false;
-        UIController.Instance.GameReady = true;
+        IsActive = true;
     }
 
     public void GameOver()
     {
-        GameEndScoreText.text = "Your Score: " + UIController.Instance.Points;
-        GameScreen.alpha = 0;
-        GameOverScreen.alpha = 1;
+        IsActive = false;
+        UIController.Instance.ShowGameOverScreen();
     }
 }
