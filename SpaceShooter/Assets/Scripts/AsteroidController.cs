@@ -16,9 +16,10 @@ public class AsteroidController : MonoBehaviour {
         set
         {
             _size = value;
-            Health = (float)Math.Floor(value * 3f);
-            Demage = (float)Math.Floor(_size) * 10f;
-            Score = (int)Math.Floor(value * 3f) * 10;
+            var size = (float)Math.Round(_size);
+            Health = size * 4f;
+            Demage = size * 10f;
+            Score = (int)size * 10;
         }
     }
 

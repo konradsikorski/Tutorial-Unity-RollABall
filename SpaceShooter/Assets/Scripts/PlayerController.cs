@@ -25,10 +25,9 @@ public class PlayerController : MonoBehaviour {
         set
         {
             _health = value;
+            UIController.Instance.PlayerHealth = _health;
 
             if (_health <= 0) Death();
-
-            UIController.Instance.PlayerHealth = _health;
         }
     }
 

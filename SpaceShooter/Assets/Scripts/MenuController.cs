@@ -14,6 +14,11 @@ public class MenuController : MonoBehaviour {
         GameController.Instance.RestartGame();
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void ExitGame()
     {
         // save any game data here

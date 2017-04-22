@@ -49,6 +49,7 @@ public class UIController : MonoBehaviour {
     internal void ShowGameOverScreen()
     {
         GameEndScoreText.text = UIController.Instance.Points.ToString();
+        GameScreen.GetComponent<Animator>().enabled = false;
         GameScreen.alpha = 0;
         GameOverScreen.alpha = 1;
     }
