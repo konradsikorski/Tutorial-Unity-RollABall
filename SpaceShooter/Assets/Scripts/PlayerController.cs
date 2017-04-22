@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class Boundry
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     public float StartHealth;
     public GameObject Explosion;
     public AudioSource DestroyClip;
+    public Image HitEffectImage;
 
     private float _health;
     public float Health
@@ -24,11 +26,31 @@ public class PlayerController : MonoBehaviour {
         get { return _health; }
         set
         {
+            if (value < _health)
+                StartCoroutine(HitEffect());
+
             _health = value;
             UIController.Instance.PlayerHealth = _health;
 
             if (_health <= 0) Death();
         }
+    }
+
+    private Color hitEffectColor = new Color32(131, 44, 44, 80);
+    private float hitEffectSpeed = 0.1f;
+
+    private IEnumerator HitEffect()
+    {
+        HitEffectImage.color = hitEffectColor;
+        
+        do
+        {
+            yield return new WaitForSeconds(hitEffectSpeed);
+            HitEffectImage.color = Color.Lerp(HitEffectImage.color, Color.clear, hitEffectSpeed);
+        }
+        while (HitEffectImage.color.a >= 0.001f);
+
+        HitEffectImage.color = Color.clear;
     }
 
     private void Death()
@@ -51,9 +73,9 @@ public class PlayerController : MonoBehaviour {
         playerBody = GetComponent<Rigidbody>();
         Health = StartHealth;
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void FixedUpdate () {
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
 
@@ -88,5 +110,10 @@ public class PlayerController : MonoBehaviour {
         Health -= boltController.Demage;
 
         Destroy(bolt);
+    }
+
+    private void OnDestroy()
+    {
+        HitEffectImage.color = Color.clear;
     }
 }
