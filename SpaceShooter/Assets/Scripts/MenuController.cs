@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour {
+    public CanvasGroup OptionsMenu;
+
     public void StartGame()
     {
         SceneManager.LoadScene(1);
@@ -22,6 +24,15 @@ public class MenuController : MonoBehaviour {
     public void Continue()
     {
         GameController.Instance.IsPaused = false;
+    }
+
+    public void Options()
+    {
+        this.GetComponent<CanvasGroup>().alpha = 0;
+        this.gameObject.SetActive(false);
+
+        OptionsMenu.gameObject.SetActive(true);
+        OptionsMenu.alpha = 1;
     }
 
     public void ExitGame()

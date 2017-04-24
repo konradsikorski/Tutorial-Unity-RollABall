@@ -26,11 +26,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public GameSettings Settings { get; internal set; }
+
     private Animator playerAnimator;
 
     private void Awake()
     {
         Instance = this;
+        Settings = new GameSettings();
         this.IsActive = false;
         Time.timeScale = 1;
     }
@@ -53,6 +56,8 @@ public class GameController : MonoBehaviour
     public void StartGame()
     {
         var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+
         player.SetActive(true);
         playerAnimator = player.GetComponent<Animator>();
         playerAnimator.SetBool("GameStarting", true);
