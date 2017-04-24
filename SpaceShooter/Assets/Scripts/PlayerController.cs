@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour {
     public Boundry Boundary;
     public float StartHealth;
     public GameObject Explosion;
-    public AudioSource DestroyClip;
     public Image HitEffectImage;
 
     private float _health;
@@ -58,9 +57,7 @@ public class PlayerController : MonoBehaviour {
         _health = 0;
         Destroy(gameObject);
 
-        var explosion = Instantiate(Explosion, transform.position, transform.rotation);
-        explosion.GetComponent<AudioSource>().Play();
-        DestroyObject(explosion, 2);
+        Instantiate(Explosion, transform.position, transform.rotation);
 
         HitEffectImage.color = Color.clear;
         GameController.Instance.GameOver();

@@ -14,16 +14,7 @@ public class EnemyAttack : MonoBehaviour
     // Use this for initialization
     void Start () {
         shootSpown = transform.FindChild("ShootSpown");
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        if (Time.time > nextFireTime)
-        {
-            nextFireTime = Time.time + FireSpeed;
-            Fire();
-        }
+        InvokeRepeating("Fire", 0.5f, FireSpeed);
     }
 
     private void Fire()

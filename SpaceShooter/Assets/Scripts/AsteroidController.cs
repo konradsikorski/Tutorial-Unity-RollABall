@@ -6,7 +6,6 @@ public class AsteroidController : MonoBehaviour {
     public float Tumble;
     public float Demage;
     public GameObject Explosin;
-    public AudioSource DestroyClip;
     public int Score;
 
     private float _size;
@@ -72,8 +71,6 @@ public class AsteroidController : MonoBehaviour {
     {
         Destroy(gameObject);
         UIController.Instance.Points += Score;
-        var explosion = Instantiate(Explosin, transform.position, transform.rotation);
-        explosion.GetComponent<AudioSource>().Play();
-        Destroy(explosion, 2);
+        Instantiate(Explosin, transform.position, transform.rotation);
     }
 }
