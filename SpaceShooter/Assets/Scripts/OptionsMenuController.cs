@@ -17,15 +17,18 @@ public class OptionsMenuController : MonoBehaviour {
 
     public void Apply()
     {
-        Autofire.isOn = GameController.Instance.Settings.AutofireEnabled;
-        MouseMove.isOn = GameController.Instance.Settings.MouseMoveEnabled;
-        MouseSensitivity.value = GameController.Instance.Settings.MouseSenstivity;
+        GameController.Instance.Settings.AutofireEnabled = Autofire.isOn;
+        GameController.Instance.Settings.MouseMoveEnabled = MouseMove.isOn;
+        GameController.Instance.Settings.MouseSenstivity = MouseSensitivity.value;
         GameController.Instance.Settings.Save();
+
+        CloseMenu();
     }
 
     public void Cancel()
     {
         SetFromSettings();
+        CloseMenu();
     }
 
     private void SetFromSettings()

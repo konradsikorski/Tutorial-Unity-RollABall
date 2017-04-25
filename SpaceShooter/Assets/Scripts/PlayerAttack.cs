@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
     public bool IsAutoFire;
@@ -21,9 +18,6 @@ public class PlayerAttack : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
-            IsAutoFire = !IsAutoFire;
-
         // first apouch
         //if (IsFireing() && fireDeltaTime >= FireSpeed)
         //    Fire();
