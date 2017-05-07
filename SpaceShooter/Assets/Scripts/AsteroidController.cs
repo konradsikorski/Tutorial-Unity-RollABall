@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class AsteroidController : MonoBehaviour {
+public class AsteroidController : MonoBehaviour, IHealth {
     public float Speed;
     public float Tumble;
     public float Demage;
@@ -16,7 +17,8 @@ public class AsteroidController : MonoBehaviour {
         {
             _size = value;
             var size = (float)Math.Round(_size);
-            Health = size * 4f;
+            InitialHealth = size * 4f;
+            Health = InitialHealth;
             Demage = size * 10f;
             Score = (int)size * 10;
         }
@@ -28,20 +30,27 @@ public class AsteroidController : MonoBehaviour {
         get { return _health; }
         set
         {
+            if (_health == value) return;
             _health = value;
+
+            if (HealthChanged != null) HealthChanged(this, System.EventArgs.Empty);
             if (_health <= 0) DestroyAsteroid();
         }
     }
 
+    public float InitialHealth { get; set; }
+
     private Rigidbody asteroidBody;
 
-	// Use this for initialization
-	void Start () {
+    public event EventHandler HealthChanged;
+
+    // Use this for initialization
+    void Start () {
         asteroidBody = GetComponent<Rigidbody>();
         asteroidBody.velocity = -Vector3.forward * Speed;
 
         asteroidBody.angularVelocity = UnityEngine.Random.insideUnitSphere * Tumble;
-	}
+    }
 
     private void OnTriggerEnter(Collider other)
     {

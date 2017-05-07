@@ -8,6 +8,7 @@ public class AsteroidManager : MonoBehaviour {
     public float TumbleMin;
     public float TumbleMax;
     public float DeltaTime;
+    public float AsteroidsDeltaTime;
     public float EnemiesDeltaTime;
 
     public GameObject[] Asteroids;
@@ -20,14 +21,15 @@ public class AsteroidManager : MonoBehaviour {
     void Update () {
         if (!GameController.Instance.IsActive) return;
 
-        if (nextAsteroidTime < Time.time)
+        if (AsteroidsDeltaTime != 0 && nextAsteroidTime < Time.time)
         {
-            nextAsteroidTime = Time.time + DeltaTime;
+            nextAsteroidTime = Time.time + AsteroidsDeltaTime;
             CreateAsteroid();
         }
-        if (nextEnemyTime < Time.time)
+
+        if (EnemiesDeltaTime != 0 && nextEnemyTime < Time.time)
         {
-            nextEnemyTime = Time.time + DeltaTime;
+            nextEnemyTime = Time.time + EnemiesDeltaTime;
             CreateEnemy();
         }
     }

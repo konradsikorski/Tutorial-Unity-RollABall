@@ -1,8 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EnemyController : MonoBehaviour {
+public interface IHealth
+{
+    float InitialHealth { get; }
+    float Health { get; }
+    event System.EventHandler HealthChanged;
+}
+
+public class EnemyController : MonoBehaviour, IHealth {
     public float Speed;
     public float Tilt;
     public Boundry Boundary;
@@ -13,13 +20,22 @@ public class EnemyController : MonoBehaviour {
 
     private Rigidbody enemyBody;
 
+    public event System.EventHandler HealthChanged;
+    public float InitialHealth
+    {
+        get { return StartHealth; }
+    }
+
     private float _health;
     public float Health
     {
         get { return _health; }
         set
         {
+            if (_health == value) return;
             _health = value;
+
+            if (HealthChanged != null) HealthChanged(this, System.EventArgs.Empty);
             if (_health <= 0) Death();
         }
     }
@@ -33,6 +49,7 @@ public class EnemyController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        _health = StartHealth;
         enemyBody = GetComponent<Rigidbody>();
         enemyBody.velocity = -transform.forward * Speed;
 
